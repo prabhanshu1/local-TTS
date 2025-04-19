@@ -12,6 +12,8 @@ app = FastAPI()
 tts = TTS(model_name="tts_models/en/ljspeech/vits",
           gpu=torch.cuda.is_available())
 
+_ = tts.tts(text="Warm up Text",split_sentences=True)
+
 async def stream_audio(text: str):
     # Generate waveform using TTS
     waveform = tts.tts(text=text,split_sentences=True)
