@@ -20,15 +20,15 @@ f5 = F5TTS(
 # Warmup
 _ = f5.infer(
         ref_file = "amit.wav", 
-        ref_text = "मनुष्य का सबसे अन्मोल रत्न होता है प्रयत्न। जिस इंसान में प्रयत्न करने की क्षमता है उसके आगे मुकदर भी झुकता है।"
-        ,gen_text = "Warm-up line.",
+        ref_text = "मनुष्य का सबसे अन्मोल रत्न होता है प्रयत्न। जिस इंसान में प्रयत्न करने की क्षमता है उसके आगे मुकदर भी झुकता है।",
+        gen_text = "Warm-up line.",
              )
 
-async def stream_audio(text: str, lang="en", speaker="default"):
+async def stream_audio(text: str, lang="hi", speaker="default"):
     waveform = f5.infer(
             ref_file = "amit.wav",
             ref_text= "मनुष्य का सबसे अन्मोल रत्न होता है प्रयत्न। जिस इंसान में प्रयत्न करने की क्षमता है उसके आगे मुकदर भी झुकता है।",
-            gen_text=text, 
+            gen_text=text,
             )
     # Save to a WAV stream
     with io.BytesIO() as wav_io:
@@ -42,7 +42,7 @@ async def stream_audio(text: str, lang="en", speaker="default"):
 async def tts_endpoint(request: Request):
     data = await request.json()
     text = data.get("text", "")
-    lang = data.get("lang", "en")
+    lang = data.get("lang", "hi")
     speaker = data.get("speaker", "default")
 
     return StreamingResponse(stream_audio(text, lang, speaker), media_type="audio/wav")
